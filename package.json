@@ -1,0 +1,23 @@
+{
+  "name": "wive-server",
+  "version": "0.0.1",
+  "description": "Wive is showing other users viewing a resource simultaneously.",
+  "main": "index.js",
+  "dependencies": {
+    "express": "~4.8.5",
+    "socket.io": "~1.0.6",
+    "forever": "~0.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/modomoto/wive-server.git"
+  },
+  "author": "Mathias Fiedler",
+  "license": "BSD",
+  "gitHead": "c88a020430689ed10b1473c2d907e88d38f42ed2",
+  "readmeFilename": "README.md"
+}
