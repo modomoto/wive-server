@@ -1,0 +1,22 @@
+  #wive-toolbar{position: fixed; bottom: 10px; right: 10px;}
+  #wive-toolbar ol{list-style-type: none}
+  #wive-toolbar ol li{float: left; width: 50px; height: 50px; padding: 7px; background-color: #dddddd; margin:  3px;}
+  #wive-toolbar ol li a{text-decoration: none}
+  #wive-toolbar ol li .icon{width: 50px; height: 50px; font-size: 40px; color: black;}
+
+  #wive-disable{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: gray;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    z-index: 9999;
+    text-align: center;
+    color: white;
+    padding-top: 100px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+  }

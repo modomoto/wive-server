@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  h2 All Rooms (Connections: #{connections})
+  con
+  huhu
+  each application, app_name in applications
+    h3= app_name
+    if application.disable
+      form(action='/disable_off', method='post')
+        input(type='hidden', name='app_name', value=app_name)
+        button(type='submit') disable OFF
+    else
+      form(action='/disable_on', method='post')
+        input(type='hidden', name='app_name', value=app_name)
+        input(type='text', name='disable_message' value="Deploy in progress...")
+        button(type='submit') disable ON
+    br
+    table(width= '600px', border='1px')
+      tr
+        th Room
+        th User
+        th Count
+        th Actions
+      each row, index in application.rooms
+        tr
+          td= index
+          td
+            each user in row.users
+              = user['username']
+              br
+          td
+            = Object.keys(row.users).length
+          td
+            if row.disable
+              form(action='/disable_off', method='post')
+                input(type='hidden', name='app_name', value=app_name)
+                input(type='hidden', name='room_name', value=index)
+                button(type='submit') disable OFF
+            else
+              form(action='/disable_on', method='post')
+                input(type='hidden', name='app_name', value=app_name)
+                input(type='hidden', name='room_name', value=index)
+                input(type='text', name='disable_message' value="Deploy in progress...")
+                button(type='submit') disable ON
+  h2 Send Eval
+  form(action='/eval', method='post')
+    input(type='text', name='app_name', placeholder='app name')
+    br
+    input(type='text', name='room_name', placeholder='room name')
+    br
+    input(type='text', name='code', placeholder='js code')
+    button(type='submit') Submit
