@@ -1,4 +1,5 @@
 var express = require('express');
+var auth = require("basic-auth");
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -8,11 +9,15 @@ var bodyParser = require('body-parser');
 var user = require('./user');
 var site = require('./site');
 
+var config = require('config');
+
 //var routes = require('./routes/index');
 //var users = require('./routes/users');
 //var client = require('./routes/client');
 
 var app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,6 +35,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser());
 
 
+app.use(function(req, res, next) {
+  var username = config.get('auth.user');
+  var password = config.get('auth.password');
+  var user;
+  user = auth(req);
+  if (user === undefined || user["name"] !== username || user["pass"] !== password) {
+    res.statusCode = 401;
+    res.setHeader("WWW-Authenticate", "Basic realm=\"Wivem\"");
+    res.end("Unauthorized");
+  } else {
+    next();
+  }
+});
 
 
 var debug = require('debug')('server');

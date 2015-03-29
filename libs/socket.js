@@ -76,14 +76,15 @@ module.exports = function(server){
     socket.on('disconnect', function(){
       for(var app_name in io.applications){
         for(var room_name in io.applications[app_name].rooms){
-          if(io.applications[app_name].rooms[room_name] !== undefined){
-            for(var user in io.applications[app_name].rooms[room_name].users){
-              if(io.applications[app_name].rooms[room_name].users[user]['socket_username'] == socket.username){
-                if(io.applications[app_name].rooms[room_name].users[user]['count'] > 1) {
-                  io.applications[app_name].rooms[room_name].users[user]['count'] = io.applications[app_name].rooms[room_name].users[user]['count'] - 1;
+          var room = io.applications[app_name].rooms[room_name];
+          if(room !== undefined){
+            for(var user in room.users){
+              if(room.users[user]['socket_username'] == socket.username){
+                if(room.users[user]['count'] > 1) {
+                  room.users[user]['count'] = room.users[user]['count'] - 1;
                 } else {
-                  delete io.applications[app_name].rooms[room_name].users[user];
-                  if(Object.keys(io.applications[app_name].rooms[room_name]).length == 0){
+                  delete room.users[user];
+                  if(Object.keys(room.users).length == 0){
                     delete io.applications[app_name].rooms[room_name];
                   }
                 }
@@ -92,7 +93,9 @@ module.exports = function(server){
             }
           }
         }
-        nsp.to(getSocketRoomName(app_name, room_name)).emit('room_update', io.applications[app_name].rooms[room_name].users );
+        if(Object.keys(room.users).length > 0){
+          nsp.to(getSocketRoomName(app_name, room_name)).emit('room_update', io.applications[app_name].rooms[room_name].users );
+        }
       }
     });
   });
