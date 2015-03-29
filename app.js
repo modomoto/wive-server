@@ -67,6 +67,7 @@ app.post('/eval', site.eval);
 app.post('/disable_on', site.disable_on);
 app.post('/disable_off', site.disable_off);
 app.get('/users', user.list);
+app.get('/client_js', site.client_js);
 
 //app.use('/', routes);
 //app.use('/users', users);

@@ -2,6 +2,7 @@ var express = require('express');
 //var router = express.Router();
 var app = express();
 var remote = require('./libs/remote');
+var config = require('config');
 
   function getNumberOfConnections(io)
   {
@@ -25,7 +26,7 @@ exports.index = function(req, res){
   var app = req.app;
   var socketio = app.get('socketio');
   res.render('index', {
-    title: 'Express',
+    title: 'Wive',
     applications: socketio.applications,
     connections: getNumberOfConnections(socketio)
   });
@@ -84,4 +85,11 @@ exports.eval = function(req, res){
   var nsp = io.of('/wive-socket');
   nsp.to(app_name + '-' + room_name).emit('room_js', code );
   res.redirect('/');
+};
+
+exports.client_js = function(req, res){
+  res.render('client_js', {
+    layout: false,
+    base_url: config.get('base_url')
+  });
 };
