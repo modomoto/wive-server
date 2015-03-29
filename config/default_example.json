@@ -2,5 +2,6 @@
   "auth": {
     "user": "user",
     "password": "password"
-  }
+  },
+  "base_url": "http://mydomain.com"
 }

@@ -1,4 +1,4 @@
-module.exports = function(server){
+module.exports = function(server, base_url){
  // var http = require('http').Server(app);
   var io = require('socket.io')(server);
   var remote = require('./remote');
@@ -58,7 +58,7 @@ module.exports = function(server){
       if(image_url){
         socket_user['image_url'] = image_url;
       }else{
-        socket_user['image_url'] = "http://localhost:3001/letters/letter-" + user[0].toLowerCase() + ".png";
+        socket_user['image_url'] = base_url + "/letters/letter-" + user[0].toLowerCase() + ".png";
       }
       socket_user['link_url'] = link_url;
 

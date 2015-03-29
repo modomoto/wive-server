@@ -54,11 +54,12 @@ var debug = require('debug')('server');
 
 app.set('port', process.env.PORT || 3001);
 
-var server = app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'),  function() {
   debug('Express server listening on port ' + server.address().port);
 });
 
-var socketio = require('./libs/socket')(server);
+
+var socketio = require('./libs/socket')(server, config.get('base_url'));
 app.set('socketio', socketio);
 
 app.get('/', site.index);
